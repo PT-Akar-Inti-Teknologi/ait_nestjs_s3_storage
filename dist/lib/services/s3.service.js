@@ -56,7 +56,7 @@ let S3Service = class S3Service {
                 const result = yield this.s3.getObject({ Key: key, Bucket: bucket });
                 if (!result.Body)
                     throw new Error('Unknown Stream Type');
-                return result.Body.transformToString();
+                return Buffer.from(result.Body.toString());
             }
             catch (error) {
                 throw error;
