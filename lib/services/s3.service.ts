@@ -43,7 +43,7 @@ export class S3Service {
       const result = await this.s3.getObject({ Key: key, Bucket: bucket });
       if (!result.Body) throw new Error('Unknown Stream Type');
 
-      return result.Body.transformToWebStream();
+      return result.Body.transformToString();
     } catch (error) {
       throw error;
     }

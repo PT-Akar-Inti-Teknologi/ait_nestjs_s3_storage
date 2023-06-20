@@ -4,5 +4,5 @@ export declare class S3Service {
     private readonly s3;
     constructor(s3: S3);
     uploadFile(options: UploadFileParams): Promise<UploadFileReturns>;
-    getFile(key: string, bucket: string): Promise<ReadableStream<any>>;
+    getFile(key: string, bucket: string): Promise<string>;
 }
