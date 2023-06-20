@@ -1,21 +1,14 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./services/s3.service"), exports);
-__exportStar(require("./ioc/s3.module"), exports);
-__exportStar(require("./utils/tokenizer"), exports);
-__exportStar(require("./interfaces/upload-file-params.interface"), exports);
-__exportStar(require("./constants/s3.constant"), exports);
+exports.S3_MODULE_OPTIONS_TOKEN = exports.S3_MODULE_CONNECTION = exports.S3_CONNECTION_TOKEN = exports.getS3OptionToken = exports.getS3ConnectionToken = exports.AitS3Module = exports.S3Service = void 0;
+var s3_service_1 = require("./services/s3.service");
+Object.defineProperty(exports, "S3Service", { enumerable: true, get: function () { return s3_service_1.S3Service; } });
+var s3_module_1 = require("./ioc/s3.module");
+Object.defineProperty(exports, "AitS3Module", { enumerable: true, get: function () { return s3_module_1.AitS3Module; } });
+var tokenizer_1 = require("./utils/tokenizer");
+Object.defineProperty(exports, "getS3ConnectionToken", { enumerable: true, get: function () { return tokenizer_1.getS3ConnectionToken; } });
+Object.defineProperty(exports, "getS3OptionToken", { enumerable: true, get: function () { return tokenizer_1.getS3OptionToken; } });
+var s3_constant_1 = require("./constants/s3.constant");
+Object.defineProperty(exports, "S3_CONNECTION_TOKEN", { enumerable: true, get: function () { return s3_constant_1.S3_CONNECTION_TOKEN; } });
+Object.defineProperty(exports, "S3_MODULE_CONNECTION", { enumerable: true, get: function () { return s3_constant_1.S3_MODULE_CONNECTION; } });
+Object.defineProperty(exports, "S3_MODULE_OPTIONS_TOKEN", { enumerable: true, get: function () { return s3_constant_1.S3_MODULE_OPTIONS_TOKEN; } });

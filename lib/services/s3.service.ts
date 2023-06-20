@@ -1,8 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { getS3ConnectionToken } from '../utils/tokenizer';
-import { S3, CompleteMultipartUploadCommandOutput } from '@aws-sdk/client-s3';
+import {
+  S3,
+  CompleteMultipartUploadCommandOutput,
+  GetObjectCommand,
+} from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
-import { UploadFileParams } from '../interfaces/upload-file-params.interface';
+import {
+  UploadFileParams,
+  UploadFileReturns,
+} from '../interfaces/upload-file.interface';
+import { Readable } from 'stream';
 
 @Injectable()
 export class S3Service {
@@ -10,14 +18,32 @@ export class S3Service {
 
   public async uploadFile(
     options: UploadFileParams
-  ): Promise<CompleteMultipartUploadCommandOutput> {
+  ): Promise<UploadFileReturns> {
     try {
-      const upload = new Upload({
+      const upload = await new Upload({
         client: this.s3,
         params: options,
-      });
+      }).done();
 
-      return upload.done();
+      const res = upload as CompleteMultipartUploadCommandOutput;
+
+      return {
+        bucket: res.Bucket,
+        key: res.Key,
+        tag: res.ETag,
+        location: res.Location,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getFile(key: string, bucket: string) {
+    try {
+      const result = await this.s3.getObject({ Key: key, Bucket: bucket });
+      if (!result.Body) throw new Error('Unknown Stream Type');
+
+      return result.Body.transformToWebStream();
     } catch (error) {
       throw error;
     }

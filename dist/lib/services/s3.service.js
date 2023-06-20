@@ -33,11 +33,30 @@ let S3Service = class S3Service {
     uploadFile(options) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const upload = new lib_storage_1.Upload({
+                const upload = yield new lib_storage_1.Upload({
                     client: this.s3,
                     params: options,
-                });
-                return upload.done();
+                }).done();
+                const res = upload;
+                return {
+                    bucket: res.Bucket,
+                    key: res.Key,
+                    tag: res.ETag,
+                    location: res.Location,
+                };
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    getFile(key, bucket) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield this.s3.getObject({ Key: key, Bucket: bucket });
+                if (!result.Body)
+                    throw new Error('Unknown Stream Type');
+                return result.Body.transformToWebStream();
             }
             catch (error) {
                 throw error;
