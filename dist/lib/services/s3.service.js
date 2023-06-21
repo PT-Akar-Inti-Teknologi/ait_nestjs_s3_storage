@@ -26,6 +26,7 @@ const common_1 = require("@nestjs/common");
 const tokenizer_1 = require("../utils/tokenizer");
 const client_s3_1 = require("@aws-sdk/client-s3");
 const lib_storage_1 = require("@aws-sdk/lib-storage");
+const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
 let S3Service = class S3Service {
     constructor(s3) {
         this.s3 = s3;
@@ -57,6 +58,35 @@ let S3Service = class S3Service {
                 if (!result.Body)
                     throw new Error('Unknown Stream Type');
                 return result;
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    getSignedFileUrl(key, bucket, expiresIn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const command = new client_s3_1.GetObjectCommand({
+                    Key: key,
+                    Bucket: bucket
+                });
+                return yield (0, s3_request_presigner_1.getSignedUrl)(this.s3, command, { expiresIn });
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    deleteFile(key, bucket) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const command = new client_s3_1.DeleteObjectCommand({
+                    Bucket: bucket,
+                    Key: key
+                });
+                const result = yield this.s3.send(command);
+                return Boolean(result.DeleteMarker);
             }
             catch (error) {
                 throw error;

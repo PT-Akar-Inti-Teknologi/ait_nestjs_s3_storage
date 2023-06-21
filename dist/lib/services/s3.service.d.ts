@@ -5,4 +5,6 @@ export declare class S3Service {
     constructor(s3: S3);
     uploadFile(options: UploadFileParams): Promise<UploadFileReturns>;
     getFile(key: string, bucket: string): Promise<import("@aws-sdk/client-s3").GetObjectCommandOutput>;
+    getSignedFileUrl(key: string, bucket: string, expiresIn: number): Promise<string>;
+    deleteFile(key: string, bucket: string): Promise<boolean>;
 }
