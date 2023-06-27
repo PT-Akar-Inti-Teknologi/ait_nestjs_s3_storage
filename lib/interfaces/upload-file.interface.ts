@@ -1,16 +1,12 @@
-import { CompleteMultipartUploadCommandOutput } from '@aws-sdk/client-s3';
-
-export interface UploadFileParams {
-  Body: Buffer;
-  Key: string;
-  UploadId: string;
-  PartNumber: Number;
-  Bucket: string;
+export interface UploadFileParam {
+  fileBuffer: Buffer;
+  filename: string;
+  referenceId: string;
+  directory?: string;
 }
 
-export interface UploadFileReturns {
-  key: string;
-  bucket: string;
-  tag: string;
+export interface UploadFileReturn {
+  filename: string;
   location: string;
+  tag?: string;
 }
