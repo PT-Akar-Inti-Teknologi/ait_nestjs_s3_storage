@@ -1,5 +1,6 @@
-export { S3Service } from './services/s3.service';
-export { AitS3Module } from './ioc/s3.module';
-export { getS3ConnectionToken, getS3OptionToken } from './utils/tokenizer';
-export { UploadFileParams, UploadFileReturns, } from './interfaces/upload-file.interface';
-export { S3_CONNECTION_TOKEN, S3_MODULE_CONNECTION, S3_MODULE_OPTIONS_TOKEN, } from './constants/s3.constant';
+export { getStorageConnectionToken, getStorageOptionToken, } from './utils/tokenizer';
+export { connectionFactory } from './utils/connection';
+export { UploadFileParam, UploadFileReturn, } from './interfaces/upload-file.interface';
+export { STORAGE_CONNECTION_TOKEN, STORAGE_MODULE_CONNECTION, STORAGE_MODULE_OPTIONS_TOKEN, } from './constants/token.constant';
+export { StorageService } from './services/storage.service';
+export { StorageModule } from './ioc/storage.module';

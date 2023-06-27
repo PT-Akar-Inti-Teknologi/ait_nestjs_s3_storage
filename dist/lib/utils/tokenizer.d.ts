@@ -1,2 +1,2 @@
-export declare function getS3OptionToken(connection?: string): string;
-export declare function getS3ConnectionToken(connection?: string): string;
+export declare function getStorageOptionToken(connection?: string): string;
+export declare function getStorageConnectionToken(connection?: string): string;
