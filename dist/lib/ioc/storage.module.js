@@ -17,7 +17,7 @@ let StorageModule = StorageModule_1 = class StorageModule {
             module: StorageModule_1,
             imports: [storage_core_module_1.StorageCoreModule.forRoot(options, connection)],
             providers: [storage_service_1.StorageService],
-            exports: [storage_core_module_1.StorageCoreModule],
+            exports: [storage_core_module_1.StorageCoreModule, storage_service_1.StorageService],
         };
     }
     static forRootAsync(options, connection) {

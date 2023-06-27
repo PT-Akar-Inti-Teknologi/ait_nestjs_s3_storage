@@ -17,7 +17,7 @@ export class StorageModule {
       module: StorageModule,
       imports: [StorageCoreModule.forRoot(options, connection)],
       providers: [StorageService],
-      exports: [StorageCoreModule],
+      exports: [StorageCoreModule, StorageService],
     };
   }
 
