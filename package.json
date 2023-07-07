@@ -1,12 +1,12 @@
 {
-  "name": "ait-storage",
+  "name": "nestjs-storage",
   "version": "1.0.0",
   "description": "Nestjs Modules for storage functionalities. Made with ♥ By AIT.",
   "main": "index.js",
   "scripts": {
     "build": "tsc"
   },
-  "author": "taufik.rahadi@akarinti.tech",
+  "author": "taufikrahadi1@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "@nestjs/common": "9.4.0",
