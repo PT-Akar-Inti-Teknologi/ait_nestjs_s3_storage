@@ -22,6 +22,10 @@ import { Upload } from '@aws-sdk/lib-storage';
 import { Readable } from 'stream';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { withFreeze } from 'timekeeper';
+import { SignedUrlError } from '../errors/signed-url.error';
+import { DownloadError } from '../errors/download.error';
+import { DeleteError } from '../errors/delete.error';
+import { UploadError } from '../errors/upload.error';
 
 @Injectable()
 export class StorageService implements IStorageService {
@@ -48,11 +52,7 @@ export class StorageService implements IStorageService {
         tag: upload.ETag,
       };
     } catch (error) {
-      throw {
-        message: 'Failed uploading object',
-        error,
-        param,
-      };
+      throw new UploadError(param, error);
     }
   }
 
@@ -75,11 +75,7 @@ export class StorageService implements IStorageService {
 
       return file;
     } catch (error) {
-      throw {
-        message: 'Failed creating cacheable url',
-        error,
-        filename,
-      };
+      throw new SignedUrlError(filename, error);
     }
   }
 
@@ -92,11 +88,7 @@ export class StorageService implements IStorageService {
 
       return result.Body as Readable;
     } catch (error) {
-      throw {
-        message: 'Failed downloading object',
-        error,
-        filename,
-      };
+      throw new DownloadError(filename, error);
     }
   }
 
@@ -111,11 +103,7 @@ export class StorageService implements IStorageService {
         expiresIn: this.storageOption.signedExpiration,
       });
     } catch (error) {
-      throw {
-        message: 'Failed creating url',
-        error,
-        filename,
-      };
+      throw new SignedUrlError(filename, error);
     }
   }
 
@@ -130,7 +118,7 @@ export class StorageService implements IStorageService {
 
       return Boolean(result.DeleteMarker);
     } catch (error) {
-      throw error;
+      throw new DeleteError(filename, error);
     }
   }
 }
